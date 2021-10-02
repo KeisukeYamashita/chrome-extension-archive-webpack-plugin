@@ -2,7 +2,8 @@
   "name": "chrome-extension-archive-webpack-plugin",
   "version": "0.1.0",
   "description": "Chrome Extension archive plugin for Webpack",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest",
