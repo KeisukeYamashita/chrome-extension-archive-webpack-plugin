@@ -34,27 +34,27 @@ export interface ChromeExtensionArchiveWebpackPluginOptions {
 export class ChromeExtensionArchiveWebpackPlugin {
     private archive: archiver.Archiver
 
-    constructor(options: ChromeExtensionArchiveWebpackPluginOptions) {
-        const { algorithm = 'zip', directory, to = '.' } = options
-        const filename = options.filename ? options.filename : `${path.parse(directory).name}.${algorithm}`
+    constructor(private options: ChromeExtensionArchiveWebpackPluginOptions) {
+        const { algorithm = 'zip' } = options
 
-        const archive = archiver(algorithm, {
+        this.archive = archiver(algorithm, {
             zlib: {
                 level: 9
             },
         })
-
-        const output = fs.createWriteStream(path.join(to, filename))
-        archive.pipe(output)
-        archive.directory(directory, directory)
-
-        this.archive = archive
     }
 
     apply(compiler: Compiler): void {
         const pluginName = this.constructor.name;
 
         compiler.hooks.done.tap(pluginName, async () => {
+            const { algorithm = 'zip', directory, filename, to = '.' } = this.options
+            const _filename = filename ? filename : `${path.parse(directory).name}.${algorithm}`
+
+            const output = fs.createWriteStream(path.join(to, _filename))
+            this.archive.pipe(output)
+            this.archive.directory(directory, directory)
+
             this.archive.finalize()
         })
     }
