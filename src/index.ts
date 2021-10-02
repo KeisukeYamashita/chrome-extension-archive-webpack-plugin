@@ -12,11 +12,18 @@ export interface ChromeExtensionArchiveWebpackPluginOptions {
     algorithm?: archiver.Format
 
     /**
-     * Output path of the archive
+     * Name of the archive
      * 
      * default: options.directory
      */
     filename?: string
+
+    /**
+     * Output path
+     * 
+     * default: '.
+     */
+    to?: string
 
     /**
      * Glob of files to include
@@ -28,8 +35,8 @@ export class ChromeExtensionArchiveWebpackPlugin {
     private archive: archiver.Archiver
 
     constructor(options: ChromeExtensionArchiveWebpackPluginOptions) {
-        const { algorithm = 'zip', directory } = options
-        const filename = options.filename ? options.filename : path.parse(directory).name
+        const { algorithm = 'zip', directory, to = '.' } = options
+        const filename = options.filename ? options.filename : `${path.parse(directory).name}.${algorithm}`
 
         const archive = archiver(algorithm, {
             zlib: {
@@ -38,6 +45,7 @@ export class ChromeExtensionArchiveWebpackPlugin {
         })
 
         const output = fs.createWriteStream(path.join(__dirname, filename))
+        console.log('output', path.join(to, filename), 'directory', directory)
         archive.pipe(output)
         archive.directory(directory, directory)
 
