@@ -9,13 +9,14 @@ export interface ChromeExtensionArchiveWebpackPluginOptions {
      * 
      * default: 'zip'
      */
-    algorithm: archiver.Format
+    algorithm?: archiver.Format
 
     /**
      * Output path of the archive
      * 
+     * default: options.directory
      */
-    filename: string
+    filename?: string
 
     /**
      * Glob of files to include
@@ -23,11 +24,11 @@ export interface ChromeExtensionArchiveWebpackPluginOptions {
     directory: string
 }
 
-class ChromeExtensionArchiveWebpackPlugin {
+export class ChromeExtensionArchiveWebpackPlugin {
     private archive: archiver.Archiver
 
     constructor(options: ChromeExtensionArchiveWebpackPluginOptions) {
-        const { algorithm, directory } = options
+        const { algorithm = 'zip', directory } = options
         const filename = options.filename ? options.filename : path.parse(directory).name
 
         const archive = archiver(algorithm, {
