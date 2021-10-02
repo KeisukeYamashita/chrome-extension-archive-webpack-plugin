@@ -29,19 +29,39 @@ export interface ChromeExtensionArchiveWebpackPluginOptions {
      * Glob of files to include
      */
     directory: string
+
+    /**
+     * Outputs logs to console
+     * 
+     * default: false
+     */
+    verbose?: boolean
 }
 
 export class ChromeExtensionArchiveWebpackPlugin {
     private archive: archiver.Archiver
+    private readonly verbose: boolean
 
     constructor(private options: ChromeExtensionArchiveWebpackPluginOptions) {
-        const { algorithm = 'zip' } = options
+        const { algorithm = 'zip', verbose = false } = options
+
+        this.verbose = verbose
 
         this.archive = archiver(algorithm, {
             zlib: {
                 level: 9
             },
         })
+
+        if (this.verbose) {
+            this.archive.on('warn', (err: Error) => {
+                console.warn(`chrome-extension-archive-webpack-plugin: ${err}`)
+            })
+
+            this.archive.on('finish', () => {
+                console.log('chrome-extension-archive-webpack-plugin: finished')
+            })
+        }
     }
 
     apply(compiler: Compiler): void {

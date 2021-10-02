@@ -20,12 +20,13 @@ yarn add --dev html-webpack-plugin
 
 ## Options
 
-| Name        | Type     | Default            | Description                  |
-|-------------|----------|--------------------|------------------------------|
-| `algorithm` | `string` | `zip`              | The compression algorithm    |
-| `filename`  | `string` | `directory` option | Name of the archive          |
-| `directory` | `string` | `undefined`        | Path to the target directory |
-| `to`        | `string` | `.`                | Output path                  |
+| Name        | Type      | Default            | Description                  |
+|-------------|-----------|--------------------|------------------------------|
+| `algorithm` | `string`  | `zip`              | The compression algorithm    |
+| `filename`  | `string`  | `directory` option | Name of the archive          |
+| `directory` | `string`  | `undefined`        | Path to the target directory |
+| `to`        | `string`  | `.`                | Output path                  |
+| `verbose`   | `boolean` | `false`            | Outputs logs to console      |
 
 ## Usage
 
@@ -36,6 +37,7 @@ import {ChromeExtensionArchiveWebpackPluginOptions} from 'chrome-extension-archi
 
 modules.exports = {
     plugins: [
+        // This will create `build.zip` in current directory
         new ChromeExtensionArchiveWebpackPluginOptions({
             directory: 'build'
         })
