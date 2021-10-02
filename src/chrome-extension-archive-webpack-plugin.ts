@@ -54,7 +54,7 @@ export class ChromeExtensionArchiveWebpackPlugin {
     apply(compiler: Compiler): void {
         const pluginName = this.constructor.name;
 
-        compiler.hooks.afterEmit.tap(pluginName, async () => {
+        compiler.hooks.done.tap(pluginName, async () => {
             this.archive.finalize()
         })
     }
