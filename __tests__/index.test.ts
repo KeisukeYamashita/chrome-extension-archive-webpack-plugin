@@ -1,6 +1,6 @@
 import { TempSandbox } from 'temp-sandbox'
 import { webpack, Configuration, Stats } from 'webpack'
-import { ChromeExtensionArchiveWebpackPlugin, ChromeExtensionArchiveWebpackPluginOptions } from './index'
+import { ChromeExtensionArchiveWebpackPlugin, ChromeExtensionArchiveWebpackPluginOptions } from '../src'
 
 const sandbox = new TempSandbox({ randomDir: true })
 const entryFile = 'src/index.js'
