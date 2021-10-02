@@ -1,4 +1,4 @@
-import { Compilation, Compiler } from 'webpack'
+import { Compiler } from 'webpack'
 import archiver from 'archiver'
 import * as path from 'path'
 import * as fs from 'fs'
@@ -44,8 +44,7 @@ export class ChromeExtensionArchiveWebpackPlugin {
             },
         })
 
-        const output = fs.createWriteStream(path.join(__dirname, filename))
-        console.log('output', path.join(to, filename), 'directory', directory)
+        const output = fs.createWriteStream(path.join(to, filename))
         archive.pipe(output)
         archive.directory(directory, directory)
 
@@ -55,13 +54,8 @@ export class ChromeExtensionArchiveWebpackPlugin {
     apply(compiler: Compiler): void {
         const pluginName = this.constructor.name;
 
-        compiler.hooks.thisCompilation.tap(pluginName, (compilation: Compilation) => {
-            compilation.hooks.processAssets.tapPromise({
-                name: pluginName
-            }, async (_): Promise<void> => {
-                this.archive.finalize()
-            })
-            return
+        compiler.hooks.afterEmit.tap(pluginName, async () => {
+            this.archive.finalize()
         })
     }
 }

@@ -1,21 +1,28 @@
 import { TempSandbox } from 'temp-sandbox'
 import { webpack, Configuration, Stats } from 'webpack'
-import { ChromeExtensionArchiveWebpackPlugin } from './index'
+import { ChromeExtensionArchiveWebpackPlugin, ChromeExtensionArchiveWebpackPluginOptions } from './index'
 
-const sandbox = new TempSandbox()
+const sandbox = new TempSandbox({ randomDir: true })
 const entryFile = 'src/index.js'
 const entryFilePath = sandbox.path.resolve(entryFile)
 const outputDirectory = 'dist'
 const outputPath = sandbox.path.resolve(outputDirectory)
 
-sandbox.createFileSync(entryFile, 'function main() {}')
-
-// afterAll(() => {
-//     sandbox.destroySandboxSync();
-// })
+afterAll(() => {
+    sandbox.destroySandboxSync();
+})
 
 describe('option', () => {
     test('default', async () => {
+        await sandbox.createFile(entryFile, 'function main() {}')
+
+        const pluginOptions: ChromeExtensionArchiveWebpackPluginOptions = {
+            algorithm: 'zip',
+            to: outputPath,
+            filename: 'test.zip',
+            directory: outputPath,
+        }
+
         const options: Configuration = {
             entry: entryFilePath,
             output: {
@@ -24,12 +31,7 @@ describe('option', () => {
                 chunkFilename: '[name].bundle.js'
             },
             plugins: [
-                new ChromeExtensionArchiveWebpackPlugin({
-                    algorithm: 'zip',
-                    to: outputPath,
-                    filename: 'test.zip',
-                    directory: outputPath,
-                })
+                new ChromeExtensionArchiveWebpackPlugin(pluginOptions)
             ]
         }
 
@@ -46,7 +48,6 @@ describe('option', () => {
             })
         })
 
-        // expect(sandbox.getFileHashSync(outputPath).includes('build.zip')).toBe(true)
-        expect(2).toBe(2)
+        expect(sandbox.getFileHashSync(outputPath).includes(pluginOptions.filename!)).toBe(true)
     })
 })
