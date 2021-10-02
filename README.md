@@ -25,6 +25,7 @@ yarn add --dev html-webpack-plugin
 | `algorithm` | `string` | `zip`              | The compression algorithm    |
 | `filename`  | `string` | `directory` option | Name of the archive          |
 | `directory` | `string` | `undefined`        | Path to the target directory |
+| `to`        | `string` | `.`                | Output path                  |
 
 ## Usage
 
