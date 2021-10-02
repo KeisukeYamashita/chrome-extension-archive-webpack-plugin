@@ -59,5 +59,3 @@ export class ChromeExtensionArchiveWebpackPlugin {
         })
     }
 }
-
-export default ChromeExtensionArchiveWebpackPlugin
