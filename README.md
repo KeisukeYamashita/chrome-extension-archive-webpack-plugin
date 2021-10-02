@@ -6,6 +6,8 @@
 
 # chrome-extension-archive-webpack-plugin
 
+[![npm version][npm-version]][npm-url]
+
 > Create Chrome Extension archive for submitting to Chrome Web Store
 
 ## Installation
@@ -80,3 +82,8 @@ modules.exports = {
 ## License
 
 [MIT](./LICENSE)
+
+<!-- Badge section -->
+
+[npm-version]: https://badge.fury.io/js/chrome-extension-archive-webpack-plugin.svg
+[npm-url]: https://badge.fury.io/js/chrome-extension-archive-webpack-plugin
