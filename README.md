@@ -33,13 +33,45 @@ yarn add --dev html-webpack-plugin
 ### Basic
 
 ```javascript
-import {ChromeExtensionArchiveWebpackPluginOptions} from 'chrome-extension-archive-webpack-plugin'
+import { ChromeExtensionArchiveWebpackPluginOptions } from 'chrome-extension-archive-webpack-plugin'
 
 modules.exports = {
     plugins: [
         // This will create `build.zip` in current directory
         new ChromeExtensionArchiveWebpackPluginOptions({
             directory: 'build'
+        })
+    ]
+}
+```
+
+### Archive `build` directory
+
+```javascript
+import { ChromeExtensionArchiveWebpackPluginOptions } from 'chrome-extension-archive-webpack-plugin'
+
+modules.exports = {
+    plugins: [
+        // This will create `build.zip` from `build/` to `build/`
+        new ChromeExtensionArchiveWebpackPluginOptions({
+            directory: 'build',
+            to: 'build'
+        })
+    ]
+}
+```
+
+### Change filename
+
+```javascript
+import { ChromeExtensionArchiveWebpackPluginOptions } from 'chrome-extension-archive-webpack-plugin'
+
+modules.exports = {
+    plugins: [
+        // This will create `myzip.zip` in current directory
+        new ChromeExtensionArchiveWebpackPluginOptions({
+            directory: 'build',
+            filename: 'myzip'
         })
     ]
 }
