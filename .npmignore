@@ -2,8 +2,10 @@
 .vscode/
 .eslintcache
 .eslintignore
-.eslint.js
+.eslintrc.js
 .prettierignore
 .prettierrc
 *.config.js
+*.config.ts
 tsconfig.json
+coverage/
