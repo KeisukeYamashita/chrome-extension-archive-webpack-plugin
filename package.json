@@ -1,0 +1,37 @@
+{
+  "name": "chrome-extension-archive-webpack-plugin",
+  "version": "0.1.0",
+  "description": "Chrome Extension archive plugin for Webpack",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint --cache . --ext .js,.ts",
+    "format": "eslint --fix --cache . --ext .js,.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/KeisukeYamashita/chrome-extension-archive-webpack-plugin"
+  },
+  "keywords": [
+    "obfuscation",
+    "webpack",
+    "plugin"
+  ],
+  "author": "KeisukeYamashita <19yamashita15@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/archiver": "^5.1.1",
+    "@types/node": "^16.10.2",
+    "@typescript-eslint/eslint-plugin": "^4.32.0",
+    "@typescript-eslint/parser": "^4.32.0",
+    "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.3.0",
+    "prettier": "^2.4.1",
+    "typescript": "^4.4.3",
+    "webpack": "^5.56.0"
+  },
+  "dependencies": {
+    "archiver": "^5.3.0"
+  }
+}
