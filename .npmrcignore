@@ -1,0 +1,9 @@
+.github/
+.vscode/
+.eslintcache
+.eslintignore
+.eslint.js
+.prettierignore
+.prettierrc
+*.config.js
+tsconfig.json
