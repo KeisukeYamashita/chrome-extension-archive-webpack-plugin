@@ -1,6 +1,6 @@
 import { TempSandbox } from 'temp-sandbox'
 import { webpack, Configuration, Stats } from 'webpack'
-import { ChromeExtensionArchiveWebpackPlugin, ChromeExtensionArchiveWebpackPluginOptions } from '../src'
+import { ChromeExtensionArchiveWebpackPlugin, ChromeExtensionArchiveWebpackPluginOptions } from './chrome-extension-archive-webpack-plugin'
 
 const sandbox = new TempSandbox({ randomDir: true })
 const entryFile = 'src/index.js'
@@ -8,9 +8,9 @@ const entryFilePath = sandbox.path.resolve(entryFile)
 const outputDirectory = 'dist'
 const outputPath = sandbox.path.resolve(outputDirectory)
 
-afterAll(() => {
-    sandbox.destroySandboxSync();
-})
+// afterAll(() => {
+//     sandbox.destroySandboxSync();
+// })
 
 describe('option', () => {
     test('default', async () => {
@@ -48,6 +48,7 @@ describe('option', () => {
             })
         })
 
-        expect(sandbox.getFileHashSync(outputPath).includes(pluginOptions.filename!)).toBe(true)
+        const files = (await sandbox.getFileList(outputPath)).map((file) => file.split('/')[1])
+        expect(files.includes(pluginOptions.filename!)).toBe(true)
     })
 })
