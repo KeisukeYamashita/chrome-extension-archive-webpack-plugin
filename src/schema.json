@@ -1,0 +1,26 @@
+{
+    "type": "object",
+    "properties": {
+        "algorithm": {
+            "description": "The compression algorithm",
+            "type": "string"
+        },
+        "filename": {
+            "description": "Name of the archive",
+            "type": "string"
+        },
+        "directory": {
+            "description": "Path to the target directory",
+            "type": "string"
+        },
+        "to": {
+            "description": "Output path",
+            "type": "string"
+        },
+        "verbose": {
+            "description": "Outputs logs to console",
+            "type": "boolean"
+        }
+    },
+    "additionalProperties": false
+}

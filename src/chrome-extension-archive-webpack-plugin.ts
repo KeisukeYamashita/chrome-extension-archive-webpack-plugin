@@ -2,6 +2,11 @@ import { Compiler } from 'webpack'
 import archiver from 'archiver'
 import * as path from 'path'
 import * as fs from 'fs'
+import schema from './schema.json'
+import { validate } from 'schema-utils'
+import { JSONSchema7 } from 'schema-utils/declarations/ValidationError'
+
+const PLUGIN_NAME = 'chrome-extension-archive-webpack-plugin'
 
 export interface ChromeExtensionArchiveWebpackPluginOptions {
     /**
@@ -43,6 +48,11 @@ export class ChromeExtensionArchiveWebpackPlugin {
     private readonly verbose: boolean
 
     constructor(private options: ChromeExtensionArchiveWebpackPluginOptions) {
+        validate(schema as JSONSchema7, options, {
+            name: PLUGIN_NAME,
+            baseDataPath: "options",
+        })
+
         const { algorithm = 'zip', verbose = false } = options
 
         this.verbose = verbose
@@ -55,11 +65,11 @@ export class ChromeExtensionArchiveWebpackPlugin {
 
         if (this.verbose) {
             this.archive.on('warn', (err: Error) => {
-                console.warn(`chrome-extension-archive-webpack-plugin: ${err}`)
+                console.warn(`${PLUGIN_NAME}: ${err}`)
             })
 
             this.archive.on('finish', () => {
-                console.log('chrome-extension-archive-webpack-plugin: finished')
+                console.log(`${PLUGIN_NAME}: finished`)
             })
         }
     }
