@@ -75,7 +75,7 @@ export class ChromeExtensionArchiveWebpackPlugin {
             this.archive.pipe(output)
             this.archive.directory(directory, directory)
 
-            await this.archive.finalize()
+            this.archive.finalize()
         })
     }
 }
