@@ -8,9 +8,9 @@ const entryFilePath = sandbox.path.resolve(entryFile)
 const outputDirectory = 'dist'
 const outputPath = sandbox.path.resolve(outputDirectory)
 
-// afterAll(() => {
-//     sandbox.destroySandboxSync();
-// })
+afterAll(() => {
+    sandbox.destroySandboxSync();
+})
 
 describe('option', () => {
     test('default', async () => {
